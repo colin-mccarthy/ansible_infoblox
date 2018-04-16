@@ -1,0 +1,15 @@
+ 	
+
+- hosts: localhost
+  gather_facts: false
+	
+  tasks:
+  - name: return next available IP address for network 10.10.10.0/24
+    set_fact:
+      ipaddr: "{{ lookup('nios_next_ip', '10.25.1.0/24', provider={'host': infoblox_host, 'username': infoblox_username, 'password': infoblox_password }) }}"
+	
+  - name: return the next 3 available IP addresses for network 10.10.10.0/24
+    set_fact:
+      ipaddr: "{{ lookup('nios_next_ip', '10.25.1.0/24', num=3, provider={'host': infoblox_host, 'username': infoblox_username, 'password': infoblox_password }) }}"
+
+  - debug: var=ipaddr
