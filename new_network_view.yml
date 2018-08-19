@@ -1,0 +1,19 @@
+---
+# https://www.infoblox.com/wp-content/uploads/infoblox-deployment-guide-infoblox-and-ansible-integration.pdf
+# pip install infoblox-client
+- name: remove all users except admin and known
+  connection: network_cli
+  gather_facts: false
+  hosts: nios
+  tasks:
+
+  - name: configure a new network view
+    nios_network_view:
+      name: ansible
+      state: present
+      comment: this is an example comment
+      provider:
+        host: "192.168.1.101"
+        username: admin
+        password: infoblox
+    connection: local
